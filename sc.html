@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Hot UI on Background - Draggable</title>
+
+<!-- Faster font loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--video-top:17%;
+--video-left:85%;
+--video-width:77px;
+--video-height:10px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body,html{
+height:100%;
+}
+
+.background-container{
+position:relative;
+width:100%;
+height:101vh;
+background-image:url('Screenshot_20260304_164326_Binance.jpg');
+background-size:cover;
+background-repeat:no-repeat;
+background-position:center;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* VIDEO */
+
+.video-overlay{
+position:absolute;
+top:var(--video-top);
+left:var(--video-left);
+transform:translate(-50%,-33%);
+width:var(--video-width);
+height:var(--video-height);
+z-index:2;
+pointer-events:none;
+}
+
+.video-overlay video{
+width:100%;
+height:auto;
+display:block;
+border-radius:8px;
+}
+
+/* BUTTON */
+
+.signup-btn{
+position:absolute;
+top:25.7%;
+left:19.1%;
+transform:translate(-50%,-50%);
+background:#f4c430;
+color:#111;
+font-size:12px;
+padding:9.6px;
+width:128px;
+border:none;
+border-radius:3px;
+cursor:pointer;
+z-index:10;
+transition:.2s;
+}
+
+.signup-btn:hover{
+background:#e5b800;
+}
+
+/* CARD */
+
+.card{
+width:350px;
+background:#fff;
+border-radius:9.1px;
+padding:8px;
+box-shadow:0 4px 15px rgba(0,0,0,0.01);
+z-index:5;
+position:absolute;
+top:56.1%;
+left:50%;
+transform:translate(-50%,-47%);
+cursor:grab;
+transition:box-shadow .2s, top .2s;
+max-height:53vh;
+overflow-y:auto;
+}
+
+.card:active{
+cursor:grabbing;
+box-shadow:0 10px 26px rgba(0,0,0,0.1);
+}
+
+.card::-webkit-scrollbar{
+width:6px;
+}
+
+.card::-webkit-scrollbar-thumb{
+background:rgba(0,0,0,0.2);
+border-radius:3px;
+}
+
+.top-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:16px;
+}
+
+.tabs{
+display:flex;
+gap:7px;
+font-size:12px;
+font-weight:500;
+color:#a1a1a1;
+}
+
+.tabs span{
+cursor:pointer;
+transition:.2s;
+}
+
+.tabs .active{
+color:#000;
+font-weight:600;
+}
+
+.hamburger{
+cursor:pointer;
+}
+
+.hamburger svg{
+width:17px;
+height:18px;
+transition:.3s;
+}
+
+.hamburger.active svg{
+transform:rotate(90deg);
+}
+
+.market-tabs{
+display:flex;
+gap:14px;
+font-size:16px;
+font-weight:600;
+margin-bottom:14px;
+}
+
+.market-tabs span{
+color:#a1a1a1;
+cursor:pointer;
+transition:.2s;
+}
+
+.market-tabs .active{
+color:#000;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+font-size:11px;
+color:#a1a1a1;
+margin-bottom:10px;
+padding:0 1px;
+}
+
+.header .price-header{
+width:100px;
+text-align:right;
+position:relative;
+right:-30px;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 0;
+transition:.2s;
+}
+
+.row:hover{
+background:#f7f7f7;
+border-radius:10px;
+}
+
+.coin{
+flex:1;
+display:flex;
+align-items:center;
+gap:6px;
+font-size:14px;
+font-weight:600;
+}
+
+.logo img{
+width:16px;
+height:16px;
+object-fit:contain;
+position:relative;
+left:-4.1px;
+}
+
+.price{
+width:89px;
+text-align:right;
+margin-right:20px;
+}
+
+.main-price{
+font-size:14px;
+font-weight:600;
+}
+
+.sub-price{
+font-size:10px;
+color:#a1a1a1;
+margin-top:2px;
+}
+
+.change{
+background:#2ebd85;
+color:#fff;
+font-weight:600;
+font-size:12px;
+padding:4px 13px;
+border-radius:3px;
+min-width:60px;
+text-align:center;
+}
+
+.view-more{
+text-align:center;
+margin-top:14px;
+font-size:14px;
+color:#a1a1a1;
+font-weight:500;
+cursor:pointer;
+transition:.2s;
+}
+
+.view-more:hover{
+color:#000;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background-container">
+
+<!-- VIDEO -->
+<div class="video-overlay">
+<video autoplay muted loop playsinline preload="metadata">
+<source src="YouCut_20260305_115503432.mp4" type="video/mp4">
+</video>
+</div>
+
+<a href="welcome.html" target="_blank">
+<button class="signup-btn">Sign Up/Log In</button>
+</a>
+
+<div class="card">
+
+<div class="top-bar">
+
+<div class="tabs">
+<span>Favorites</span>
+<span class="active">Hot</span>
+<span>Alpha</span>
+<span>New</span>
+<span>Gainers</span>
+</div>
+
+<div class="hamburger" id="menuBtn">
+<svg viewBox="0 0 24 18" fill="none">
+<rect width="24" height="2.5" rx="1.2" fill="#777"/>
+<rect y="8" width="24" height="2.5" rx="1.2" fill="#777"/>
+<rect y="16" width="24" height="2.5" rx="1.2" fill="#777"/>
+</svg>
+</div>
+
+</div>
+
+<div class="market-tabs">
+<span class="active">Crypto</span>
+<span>Futures</span>
+</div>
+
+<div class="header">
+<span>Name</span>
+<span class="price-header">Last Price</span>
+<span>24h chg%</span>
+</div>
+
+<div class="row">
+<div class="coin">BNB
+<span class="logo"><img src="file_000000006390722fb0a643c299a6cede.png" loading="lazy"></span>
+</div>
+<div class="price">
+<div class="main-price">657.55</div>
+<div class="sub-price">$657.55</div>
+</div>
+<div class="change">+4.52%</div>
+</div>
+
+<div class="row">
+<div class="coin">BTC
+<span class="logo"><img src="file_000000006390722fb0a643c299a6cede.png" loading="lazy"></span>
+</div>
+<div class="price">
+<div class="main-price">72,830.48</div>
+<div class="sub-price">$72,830.48</div>
+</div>
+<div class="change">+7.77%</div>
+</div>
+
+<div class="row">
+<div class="coin">ETH
+<span class="logo"><img src="file_000000006390722fb0a643c299a6cede.png" loading="lazy"></span>
+</div>
+<div class="price">
+<div class="main-price">2,129.40</div>
+<div class="sub-price">$2,129.40</div>
+</div>
+<div class="change">+8.43%</div>
+</div>
+
+<div class="row">
+<div class="coin">SOL</div>
+<div class="price">
+<div class="main-price">92.13</div>
+<div class="sub-price">$92.13</div>
+</div>
+<div class="change">+8.81%</div>
+</div>
+
+<div class="row">
+<div class="coin">DOGE</div>
+<div class="price">
+<div class="main-price">0.09749</div>
+<div class="sub-price">$0.09749</div>
+</div>
+<div class="change">+7.99%</div>
+</div>
+
+<div class="view-more">View More</div>
+
+</div>
+</div>
+
+<script>
+
+/* TABS */
+
+document.querySelectorAll(".tabs span").forEach(tab=>{
+tab.onclick=()=>{
+document.querySelectorAll(".tabs span").forEach(t=>t.classList.remove("active"));
+tab.classList.add("active");
+};
+});
+
+document.querySelectorAll(".market-tabs span").forEach(tab=>{
+tab.onclick=()=>{
+document.querySelectorAll(".market-tabs span").forEach(t=>t.classList.remove("active"));
+tab.classList.add("active");
+};
+});
+
+document.getElementById("menuBtn").onclick=function(){
+this.classList.toggle("active");
+};
+
+document.querySelector(".view-more").onclick=function(){
+alert("Load more coins...");
+};
+
+/* BINANCE DATA */
+
+const coins={BNB:"BNBUSDT",BTC:"BTCUSDT",ETH:"ETHUSDT",SOL:"SOLUSDT",DOGE:"DOGEUSDT"};
+const precision={BNB:2,BTC:2,ETH:2,SOL:2,DOGE:5};
+
+async function fetchCoinData(symbol,row,coinName){
+
+try{
+
+const resp=await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`);
+const data=await resp.json();
+
+const price=parseFloat(data.lastPrice);
+const change=parseFloat(data.priceChangePercent);
+
+const main=row.querySelector(".main-price");
+
+main.textContent=price.toLocaleString(undefined,{
+minimumFractionDigits:precision[coinName],
+maximumFractionDigits:precision[coinName]
+});
+
+const sub=row.querySelector(".sub-price");
+
+if(sub)sub.textContent=`$${main.textContent}`;
+
+const changeEl=row.querySelector(".change");
+
+changeEl.textContent=(change>=0?"+":"")+change.toFixed(2)+"%";
+changeEl.style.background=change>=0?"#2ebd85":"#e74c3c";
+
+}catch(e){
+console.log(e);
+}
+
+}
+
+function updateAllCoins(){
+
+document.querySelectorAll(".row").forEach(row=>{
+
+const coinName=row.querySelector(".coin").childNodes[0].textContent.trim();
+
+const symbol=coins[coinName];
+
+if(symbol)fetchCoinData(symbol,row,coinName);
+
+});
+
+}
+
+updateAllCoins();
+
+/* slower refresh for performance */
+setInterval(updateAllCoins,5000);
+
+/* DRAG CARD */
+
+const card=document.querySelector(".card");
+
+let isDragging=false;
+let startY,startTop;
+
+card.onmousedown=e=>{
+isDragging=true;
+startY=e.clientY;
+startTop=parseFloat(getComputedStyle(card).top);
+card.style.transition="none";
+};
+
+document.onmousemove=e=>{
+if(!isDragging)return;
+const deltaY=e.clientY-startY;
+card.style.top=(startTop+deltaY)+"px";
+};
+
+document.onmouseup=()=>{
+if(isDragging){
+isDragging=false;
+card.style.transition="top .2s";
+}
+};
+
+</script>
+
+</body>
+</html>

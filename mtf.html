@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Crypto Exchange UI</title>
+
+<!-- FONT AWESOME ICONS -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#f6f7fb;
+margin:0;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:12px 15px;
+background:white;
+border-bottom:1px solid #eee;
+}
+
+.menu{
+font-size:22px;
+cursor:pointer;
+}
+
+.toggle{
+display:flex;
+background:#f2f2f2;
+border-radius:10px;
+overflow:hidden;
+}
+
+.toggle div{
+padding:6px 16px;
+font-size:14px;
+cursor:pointer;
+}
+
+.toggle .active{
+background:white;
+font-weight:bold;
+}
+
+.icons i{
+margin-left:12px;
+font-size:18px;
+cursor:pointer;
+}
+
+/* BALANCE */
+
+.balance{
+background:white;
+padding:20px;
+}
+
+.balance h3{
+font-size:14px;
+color:#888;
+margin:0;
+}
+
+.balance-value{
+font-size:36px;
+font-weight:bold;
+margin:10px 0;
+}
+
+.pnl{
+color:#2ecc71;
+font-size:14px;
+}
+
+.add-btn{
+float:right;
+background:#f3c623;
+border:none;
+padding:10px 16px;
+border-radius:6px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* ACTIONS */
+
+.actions{
+display:flex;
+justify-content:space-around;
+padding:20px 10px;
+background:white;
+border-top:1px solid #eee;
+}
+
+.action{
+text-align:center;
+font-size:12px;
+cursor:pointer;
+}
+
+.icon-box{
+width:45px;
+height:45px;
+background:#f1f1f1;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+margin-bottom:6px;
+}
+
+.icon-box i{
+font-size:18px;
+}
+
+/* MARKET */
+
+.market{
+background:white;
+margin-top:10px;
+padding:10px 15px;
+}
+
+.tabs{
+display:flex;
+gap:16px;
+margin-bottom:10px;
+font-size:14px;
+}
+
+.tabs span{
+color:#999;
+cursor:pointer;
+}
+
+.tabs .active{
+color:black;
+font-weight:bold;
+}
+
+.coin-row{
+display:flex;
+justify-content:space-between;
+padding:12px 0;
+border-bottom:1px solid #f3f3f3;
+}
+
+.coin-name{
+font-weight:bold;
+}
+
+.coin-pair{
+font-size:12px;
+color:#777;
+}
+
+.price{
+text-align:right;
+}
+
+.change{
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+margin-top:3px;
+display:inline-block;
+}
+
+.green{
+background:#22c55e;
+color:white;
+}
+
+.red{
+background:#ef4444;
+color:white;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:10px 0;
+border-top:1px solid #eee;
+}
+
+.bottom-nav div{
+text-align:center;
+font-size:12px;
+color:#555;
+cursor:pointer;
+}
+
+.bottom-nav i{
+font-size:20px;
+display:block;
+margin-bottom:4px;
+}
+
+.bottom-nav .active{
+color:black;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="menu">
+<i class="fa-solid fa-bars"></i>
+</div>
+
+<div class="toggle">
+<div class="active">Exchange</div>
+<div>Wallet</div>
+</div>
+
+<div class="icons">
+<i class="fa-solid fa-headset"></i>
+<i class="fa-solid fa-clock-rotate-left"></i>
+</div>
+
+</div>
+
+<!-- BALANCE -->
+
+<div class="balance">
+
+<button class="add-btn">Add Funds</button>
+
+<h3>Est. Total Value (USD)</h3>
+
+<div class="balance-value">$0</div>
+
+<div class="pnl">Today's PNL +$22.59 (+1.56%)</div>
+
+</div>
+
+<!-- ACTIONS -->
+
+<div class="actions">
+
+<div class="action" onclick="actionAlert('Rewards Hub')">
+<div class="icon-box">
+<i class="fa-solid fa-ticket"></i>
+</div>
+Rewards Hub
+</div>
+
+<div class="action" onclick="actionAlert('Referral')">
+<div class="icon-box">
+<i class="fa-solid fa-user-plus"></i>
+</div>
+Referral
+</div>
+
+<div class="action" onclick="actionAlert('Earn')">
+<div class="icon-box">
+<i class="fa-solid fa-coins"></i>
+</div>
+Earn
+</div>
+
+<div class="action" onclick="actionAlert('Deposit')">
+<div class="icon-box">
+<i class="fa-solid fa-download"></i>
+</div>
+Deposit
+</div>
+
+<div class="action" onclick="actionAlert('More Options')">
+<div class="icon-box">
+<i class="fa-solid fa-ellipsis"></i>
+</div>
+More
+</div>
+
+</div>
+
+<!-- MARKET -->
+
+<div class="market">
+
+<div class="tabs">
+<span class="active">Favorites</span>
+<span>Hot</span>
+<span>Alpha</span>
+<span>New</span>
+<span>Gainers</span>
+</div>
+
+<div class="coin-row">
+<div>
+<div class="coin-name">BNB</div>
+<div class="coin-pair">BNB / USDT</div>
+</div>
+<div class="price">
+<div class="coin-price">805.57</div>
+<div class="change green">+0.29%</div>
+</div>
+</div>
+
+<div class="coin-row">
+<div>
+<div class="coin-name">BTC</div>
+<div class="coin-pair">BTC / USDT</div>
+</div>
+<div class="price">
+<div class="coin-price">118821.28</div>
+<div class="change green">+0.13%</div>
+</div>
+</div>
+
+<div class="coin-row">
+<div>
+<div class="coin-name">ETH</div>
+<div class="coin-pair">ETH / USDT</div>
+</div>
+<div class="price">
+<div class="coin-price">4250.36</div>
+<div class="change green">+0.17%</div>
+</div>
+</div>
+
+<div class="coin-row">
+<div>
+<div class="coin-name">USDC</div>
+<div class="coin-pair">USDC / USDT</div>
+</div>
+<div class="price">
+<div class="coin-price">0.9999</div>
+<div class="change green">+0.01%</div>
+</div>
+</div>
+
+<div class="coin-row">
+<div>
+<div class="coin-name">SOL</div>
+<div class="coin-pair">SOL / USDT</div>
+</div>
+<div class="price">
+<div class="coin-price">176.54</div>
+<div class="change red">-3.53%</div>
+</div>
+</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom-nav">
+
+<div class="active">
+<i class="fa-solid fa-house"></i>
+Home
+</div>
+
+<div>
+<i class="fa-solid fa-chart-line"></i>
+Markets
+</div>
+
+<div>
+<i class="fa-solid fa-right-left"></i>
+Trade
+</div>
+
+<div>
+<i class="fa-solid fa-file-contract"></i>
+Futures
+</div>
+
+<div>
+<i class="fa-solid fa-wallet"></i>
+Assets
+</div>
+
+</div>
+
+
+<script>
+
+/* Toggle Exchange / Wallet */
+
+const toggleButtons = document.querySelectorAll(".toggle div");
+
+toggleButtons.forEach(btn=>{
+btn.addEventListener("click",()=>{
+toggleButtons.forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+});
+});
+
+
+/* Market Tabs */
+
+const tabs = document.querySelectorAll(".tabs span");
+
+tabs.forEach(tab=>{
+tab.addEventListener("click",()=>{
+tabs.forEach(t=>t.classList.remove("active"));
+tab.classList.add("active");
+});
+});
+
+
+/* Add Funds */
+
+document.querySelector(".add-btn").addEventListener("click",()=>{
+
+let amount = prompt("Enter amount to add:");
+
+if(amount && !isNaN(amount)){
+
+let balanceElement = document.querySelector(".balance-value");
+
+let currentBalance = parseFloat(balanceElement.innerText.replace("$",""));
+
+let newBalance = currentBalance + parseFloat(amount);
+
+balanceElement.innerText = "$"+newBalance.toFixed(2);
+
+alert("Funds added successfully");
+
+}
+
+});
+
+
+/* Bottom Navigation */
+
+const navItems = document.querySelectorAll(".bottom-nav div");
+
+navItems.forEach(item=>{
+item.addEventListener("click",()=>{
+navItems.forEach(i=>i.classList.remove("active"));
+item.classList.add("active");
+});
+});
+
+
+/* Action Buttons */
+
+function actionAlert(name){
+alert(name+" clicked");
+}
+
+
+/* Simulated Live Price Updates */
+
+function updatePrices(){
+
+const prices=document.querySelectorAll(".coin-price");
+
+prices.forEach(price=>{
+
+let value=parseFloat(price.innerText);
+
+let change=(Math.random()-0.5)*2;
+
+value=value+change;
+
+price.innerText=value.toFixed(2);
+
+});
+
+}
+
+setInterval(updatePrices,4000);
+
+
+</script>
+
+</body>
+</html>
