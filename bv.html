@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>Withdrawal Details · arranged</title>
+
+<style>
+
+/* reset & base */
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:2px;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#0f1720;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:89vh;
+  min-width:8px;
+
+  position:relative;
+  left:0px;
+  top:10%;
+}
+
+/* main container */
+.container{
+  width:101%;
+  max-width:450px;
+  overflow:hidden;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  font-size:16px;
+  font-weight:600;
+  position:sticky;
+  top:0;
+  z-index:10;
+  position:relative;
+}
+
+/* BACK ARROW */
+.back{
+  font-size:0px;
+  position:absolute;
+  left: -15px;
+  top: -18.5px;
+  cursor:pointer;
+  line-height:1;
+  user-select:none;
+}
+
+/* AMOUNT SECTION */
+.amount-box{
+  text-align:center;
+  padding:30px 16px;
+  border-bottom:1px solid #2f3a4a;
+}
+
+.amount-title{
+  color:#b7c0cd;
+  font-size:14px;
+  letter-spacing:0.3px;
+}
+
+.amount{
+  font-size:26px;
+  margin:10px 0 7px;
+  font-weight:600;
+  line-height:1.2;
+  word-break:break-word;
+}
+
+/* STATUS WITH SVG */
+.status{
+  color:#3fd37f;
+  font-size:14px;
+  font-weight:500;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:4px 12px;
+  border-radius:30px;
+}
+
+/* DETAILS CARD */
+.details{
+  padding:16px 17px;
+  width:104%;
+  position:relative;
+  left:-8px;
+  margin:0 auto;
+  background:#1b2430;
+}
+
+/* ROWS */
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin:8px 0;
+  color:#c3ccd9;
+  gap:10px;
+}
+
+.label{
+  color:#8a95a5;
+  font-size:15px;
+  flex-shrink:0;
+}
+
+.value{
+  text-align:right;
+  max-width:200px;
+  word-break:break-all;
+  font-size:15px;
+  line-height:1.3;
+}
+
+/* BUTTONS */
+.buttons{
+  display:flex;
+  gap:14px;
+  padding:13px 13px 12px;
+  margin-top:80%;
+  border:none;
+}
+
+button{
+  flex:1;
+  padding:8px 12px;
+  border:none;
+  border-radius:5px;
+  font-size:15px;
+  cursor:pointer;
+  font-weight:400;
+  transition:opacity 0.2s;
+  min-height:44px;
+}
+
+button:active{
+  opacity:0.5;
+}
+
+.copy{
+  background:#3b4556;
+  color:white;
+}
+
+.explorer{
+  background:#f3c623;
+  color:black;
+  font-weight:600;
+}
+
+/* select helpers */
+#address,
+#txid{
+  user-select:all;
+  font-size:12px;
+}
+
+/* small screens */
+@media (max-width:380px){
+
+  .amount{
+    font-size:34px;
+  }
+
+  .row{
+    flex-direction:column;
+    gap:4px;
+    margin:10px 0;
+  }
+
+  .value{
+    text-align:left;
+    max-width:100%;
+  }
+
+  .buttons{
+    flex-direction:column;
+  }
+}
+
+@media (max-height:600px){
+  .buttons{
+    margin-top:20%;
+  }
+}
+
+.container,
+.header,
+.amount-box,
+.details,
+.buttons{
+  border-radius:0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<span class="back" onclick="goBack()">
+<img src="file_00000000470072438cebc1c435ea2a1a.png" alt="logo" style="height:89px;">
+</span>
+<canvas id="canvas" width = "12" height = "0"></canvas>Withdrawal Details
+</div>
+
+<div class="amount-box">
+<div class="amount-title">Amount</div>
+<div class="amount">156.9419 USDT</div>
+
+<div class="status">
+
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+stroke="#3fd37f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+<circle cx="12" cy="12" r="11"/>
+<path d="M9 12.5L11 15.5L17 9.8"/>
+
+</svg>
+
+Completed
+
+</div>
+</div>
+
+<div class="details">
+
+<div class="row">
+<div class="label">Confirmations</div>
+<div class="value">28843804 / 1</div>
+</div>
+
+<div class="row">
+<div class="label">Address</div>
+<div class="value" id="address">TJqgEz3kkP4i5dUQCkMSgKb4ptWD49Pi7X</div>
+</div>
+
+<div class="row">
+<div class="label">Transaction Fee</div>
+<div class="value">1</div>
+</div>
+
+<div class="row">
+<div class="label">Txid</div>
+<div class="value" id="txid">13bd1a57f3c3c74ddd1f8b4a4dc8715c8c471d8052a864717777037f0a120ea5</div>
+</div>
+
+<div class="row">
+<div class="label">Date</div>
+<div class="value">2021-03-28 15:01:47</div>
+</div>
+
+</div>
+
+<div class="buttons">
+<button class="copy" onclick="copyTxid()">Copy Txid</button>
+<button class="explorer" onclick="openExplorer()">Check Explorer</button>
+</div>
+
+</div>
+
+<script>
+
+function copyTxid(){
+  const txid=document.getElementById("txid").innerText;
+
+  navigator.clipboard.writeText(txid).then(function(){
+    alert("✓ Txid Copied!");
+  }).catch(function(){
+    alert("Press and hold to copy: "+txid);
+  });
+}
+
+function openExplorer(){
+  const txid=document.getElementById("txid").innerText;
+  window.open("https://tronscan.org/#/transaction/"+txid,"_blank");
+}
+
+function goBack(){
+  window.history.back();
+}
+
+</script>
+
+</body>
+</html>
+    
