@@ -108,6 +108,7 @@
       align-items: flex-start;
       transition: background 0.2s;
       background: transparent;
+      cursor:pointer;
     }
 
     .item:hover {
@@ -189,7 +190,7 @@ Assets
 
 <div class="list">
 
-<div class="item">
+<div class="item" data-link="transfer1.html">
 <div class="left">
 <div class="type">Transfer</div>
 <div class="time">2026-02-23 23:54:25</div>
@@ -200,7 +201,7 @@ Assets
 </div>
 </div>
 
-<div class="item">
+<div class="item" data-link="transfer2.html">
 <div class="left">
 <div class="type">Transfer</div>
 <div class="time">2026-02-23 00:41:29</div>
@@ -211,7 +212,7 @@ Assets
 </div>
 </div>
 
-<div class="item">
+<div class="item" data-link="transfer3.html">
 <div class="left">
 <div class="type">Transfer</div>
 <div class="time">2026-02-22 00:11:08</div>
@@ -222,7 +223,7 @@ Assets
 </div>
 </div>
 
-<div class="item">
+<div class="item" data-link="transfer4.html">
 <div class="left">
 <div class="type">Transfer</div>
 <div class="time">2026-02-21 01:00:54</div>
@@ -233,7 +234,7 @@ Assets
 </div>
 </div>
 
-<div class="item">
+<div class="item" data-link="transfer5.html">
 <div class="left">
 <div class="type">Transfer</div>
 <div class="time">2026-02-21 01:00:43</div>
@@ -244,7 +245,7 @@ Assets
 </div>
 </div>
 
-<div class="item">
+<div class="item" data-link="deposit.html">
 <div class="left">
 <div class="type">Deposit</div>
 <div class="time">2026-02-20 11:01:41</div>
@@ -255,7 +256,7 @@ Assets
 </div>
 </div>
 
-<div class="item">
+<div class="item" data-link="transfer6.html">
 <div class="left">
 <div class="type">Transfer</div>
 <div class="time">2026-02-20 01:01:44</div>
@@ -266,7 +267,7 @@ Assets
 </div>
 </div>
 
-<div class="item">
+<div class="item" data-link="withdraw1.html">
 <div class="left">
 <div class="type">Withdraw</div>
 <div class="time">2026-02-19 11:14:39</div>
@@ -277,7 +278,7 @@ Assets
 </div>
 </div>
 
-<div class="item">
+<div class="item" data-link="withdraw2.html">
 <div class="left">
 <div class="type">Withdraw</div>
 <div class="time">2026-02-19 02:35:56</div>
@@ -288,7 +289,7 @@ Assets
 </div>
 </div>
 
-<div class="item">
+<div class="item" data-link="transfer7.html">
 <div class="left">
 <div class="type">Transfer</div>
 <div class="time">2026-02-19 00:59:49</div>
@@ -309,10 +310,18 @@ history.back();
 
 document.querySelectorAll(".item").forEach(function(item){
 item.addEventListener("click", function(){
+
 document.querySelectorAll(".item").forEach(i => {
 i.style.background = "transparent";
 });
+
 this.style.background = "#0d1621";
+
+const link = this.getAttribute("data-link");
+if(link){
+window.location.href = link;
+}
+
 });
 });
 
