@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Assets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1: #03080d;
+      --bg2: #03080d;
+      --panel: #070e14;
+      --text: #e7e9ee;
+      --muted: #7c8591;
+      --line: #0f1720;
+      --green: #16c784;
+      --red: #ea3943;
+      --receipt-scale: 0.80;
+      --receipt-width: 128%;
+      --receipt-left: -55px;
+      --receipt-top: -1px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg1);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .receipt {
+      position: fixed;
+      transform: scale(var(--receipt-scale));
+      transform-origin: top center;
+      background: var(--panel);
+      width: var(--receipt-width);
+      left: var(--receipt-left);
+      top: var(--receipt-top);
+      display: flex;
+      flex-direction: column;
+      height: 127vh;
+      box-shadow: none;
+      filter: none;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 18px 20px;
+    }
+
+    .back {
+      width: 28px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+      margin-left: 40px;
+    }
+
+    .header-title h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+    }
+
+    .header-title span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .download {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .list {
+      padding: 14px 0;
+      overflow-y: auto;
+      flex: 1;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .item {
+      padding: 22px 20px;
+      border-bottom: 2px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center; /* updated for vertical centering */
+      transition: background 0.2s;
+      background: transparent;
+      cursor:pointer;
+    }
+
+    .item:hover {
+      background: #0d1621;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .type {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .time {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .amount {
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .green { color: var(--green); }
+    .red   { color: var(--red); }
+  </style>
+</head>
+<body>
+
+<div class="receipt" id="receipt">
+
+<div class="header">
+
+<div class="back" id="backBtn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M15 6L9 12L15 18"/>
+</svg>
+</div>
+
+<div class="header-title">
+<h1>
+Assets
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M6 9l6 6 6-6"/>
+</svg>
+</h1>
+<span>Overall</span>
+</div>
+
+<div class="download" id="downloadBtn">
+<svg width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="3" y="3" width="18" height="20" rx="2"></rect>
+<line x1="12" y1="7" x2="12" y2="14"></line>
+<polyline points="8 11 12 15 16 11"></polyline>
+</svg>
+</div>
+
+</div>
+
+<div class="list">
+
+<!-- USDT -->
+<div class="item">
+<div class="left">
+<div class="type">USDT</div>
+<div class="time">2026-02-16 08:09</div>
+</div>
+<div class="right">
+<div class="amount">10.45 USDT</div>
+</div>
+</div>
+
+<!-- XRP -->
+<div class="item" data-link="xrph.html">
+<div class="left">
+<div class="type">XRP</div>
+<div class="time">2026-02-08 22:05</div>
+</div>
+<div class="right">
+<div class="amount">999.8 XRP</div>
+</div>
+</div>
+
+<!-- USDT -->
+<div class="item">
+<div class="left">
+<div class="type">USDT</div>
+<div class="time">2026-02-05 02:07</div>
+</div>
+<div class="right">
+<div class="amount">1215 USDT</div>
+</div>
+</div>
+
+<!-- rest unchanged -->
+<div class="item" data-link="xrph.html">
+<div class="left">
+<div class="type">Transfer</div>
+<div class="time">2026-02-21 01:00:54</div>
+</div>
+<div class="right">
+<div class="amount">1.35825 USDT</div>
+<div class="sub">Funding &gt; Spot</div>
+</div>
+</div>
+
+<div class="item" data-link="transfer5.html">
+<div class="left">
+<div class="type">Transfer</div>
+<div class="time">2026-02-21 01:00:43</div>
+</div>
+<div class="right">
+<div class="amount">935.81168531 USDT</div>
+<div class="sub">Funding &gt; Spot</div>
+</div>
+</div>
+
+<div class="item" data-link="deposit.html">
+<div class="left">
+<div class="type">Deposit</div>
+<div class="time">2026-02-20 11:01:41</div>
+</div>
+<div class="right">
+<div class="amount green">+0.03825675625825866 BNB</div>
+<div class="sub">Completed</div>
+</div>
+</div>
+
+<div class="item" data-link="transfer6.html">
+<div class="left">
+<div class="type">Transfer</div>
+<div class="time">2026-02-20 01:01:44</div>
+</div>
+<div class="right">
+<div class="amount">894.84667454 USDT</div>
+<div class="sub">Funding &gt; Spot</div>
+</div>
+</div>
+
+<div class="item" data-link="withdraw1.html">
+<div class="left">
+<div class="type">Withdraw</div>
+<div class="time">2026-02-19 11:14:39</div>
+</div>
+<div class="right">
+<div class="amount red">-49.7388014 USDT</div>
+<div class="sub">Completed</div>
+</div>
+</div>
+
+<div class="item" data-link="withdraw2.html">
+<div class="left">
+<div class="type">Withdraw</div>
+<div class="time">2026-02-19 02:35:56</div>
+</div>
+<div class="right">
+<div class="amount red">-30.05315252 USDT</div>
+<div class="sub">Completed</div>
+</div>
+</div>
+
+<div class="item" data-link="transfer7.html">
+<div class="left">
+<div class="type">Transfer</div>
+<div class="time">2026-02-19 00:59:49</div>
+</div>
+<div class="right">
+<div class="amount">919.59970534 USDT</div>
+<div class="sub">Funding &gt; Spot</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+document.getElementById("backBtn").addEventListener("click", function(){
+history.back();
+});
+
+document.querySelectorAll(".item").forEach(function(item){
+item.addEventListener("click", function(){
+
+document.querySelectorAll(".item").forEach(i => {
+i.style.background = "transparent";
+});
+
+this.style.background = "#0d1621";
+
+const link = this.getAttribute("data-link");
+if(link){
+window.location.href = link;
+}
+
+});
+});
+
+document.getElementById("downloadBtn").addEventListener("click", function(){
+html2canvas(document.getElementById("receipt")).then(canvas => {
+const link = document.createElement("a");
+link.download = "assets-receipt.png";
+link.href = canvas.toDataURL("image/png");
+link.click();
+});
+});
+</script>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+</body>
+</html>
