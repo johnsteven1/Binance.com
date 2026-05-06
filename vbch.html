@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wallet History</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* REMOVE BLUE TAP HIGHLIGHT */
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: #fff;
+  color: #111;
+  max-width: 420px;
+  margin: auto;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* HEADER */
+.header {
+  height: 60px;
+  padding: 18px 14px 0;
+  position: relative;
+}
+
+.header-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.icon {
+  position: absolute;
+  top: 22px;
+  width: 20px;
+  height: 20px;
+}
+
+.icon.left { left: 14px; }
+.icon.right { right: 14px; font-size: 14px; }
+
+/* SEGMENT */
+.segment-wrapper {
+  width: 88%;
+  margin: 8px auto;
+  background: #f2f3f5;
+  border-radius: 4px;
+  padding: 3px;
+}
+
+.segment {
+  display: flex;
+  position: relative;
+}
+
+.segment-btn {
+  flex: 1;
+  text-align: center;
+  padding: 4px 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca3af;
+  z-index: 2;
+}
+
+.segment-btn.active { 
+  color: #111; 
+  font-weight: 600;
+}
+
+.segment-indicator {
+  position: absolute;
+  width: 50%;
+  height: 104%;
+  background: #fff;
+  border-radius: 2px;
+  transition: 0.25s;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 18px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.tab {
+  font-size: 13px;
+  color: #888;
+}
+
+.tab.active {
+  color: #000;
+  font-weight: 600;
+  position: relative;
+}
+
+.tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: #f5c542;
+}
+
+/* SUB TABS */
+.sub-tabs {
+  display: flex;
+  padding: 10px 14px;
+}
+
+.sub-tab {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  margin-right: 8px;
+  background: #f3f3f3;
+  color: #777;
+}
+
+.sub-tab.active {
+  background: #eaeaea;
+  color: #000;
+  font-weight: 500;
+}
+
+/* NOTICE */
+.notice {
+  display: flex;
+  font-size: 11.5px;
+  color: #caa000;
+  padding: 6px 14px 10px;
+  line-height: 1.4;
+}
+
+.notice-icon {
+  margin-right: 1px;
+}
+
+/* SCROLL AREA */
+.history-container {
+  height: calc(100vh - 220px);
+  overflow-y: auto;
+}
+
+/* CARD */
+.card {
+  padding: 14px 14px 12px;
+  border-bottom: 1px solid #f1f1f1;
+
+  cursor: pointer;
+  transition: 0.15s;
+  user-select: none;
+}
+
+/* PRESS EFFECT */
+.card:active {
+  transform: scale(0.98);
+  background: #f7f7f7;
+}
+
+/* TOP ROW */
+.row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.coin {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.star {
+  font-size: 17px;
+  color: #ccc;
+  margin-left: 6px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  font-size: 11.5px;
+  color: #666;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #1ecb81;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+/* DETAILS */
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.col {
+  flex: 1;
+}
+
+.col.time {
+  flex: 1.2;
+  text-align: right;
+}
+
+.label {
+  font-size: 10.5px;
+  color: #9aa0a6;
+  margin-bottom: 3px;
+}
+
+.value {
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="icon left">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </div>
+  <div class="header-title">Wallet History</div>
+  <div class="icon right">
+    <img src="file_000000001334720a9340f7f45583dcb1.png" width="16">
+  </div>
+</div>
+
+<div class="segment-wrapper">
+  <div class="segment">
+    <div class="segment-indicator"></div>
+    <div class="segment-btn active" onclick="selectSegment(0)">Spot</div>
+    <div class="segment-btn" onclick="selectSegment(1)">Free Market</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab">Deposit</div>
+  <div class="tab active">Withdraw</div>
+  <div class="tab">Transfer</div>
+  <div class="tab">Others</div>
+</div>
+
+<div class="sub-tabs">
+  <div class="sub-tab active">On-chain</div>
+  <div class="sub-tab">Internal</div>
+</div>
+
+<div class="notice">
+  <div class="notice-icon">
+    <img src="6897039.png" width="14">
+  </div>
+  <div>Deposit and withdrawal records have been categorized into on-chain and internal. Please switch to view.</div>
+</div>
+
+<!-- SCROLLABLE TRANSACTION HISTORY -->
+<div class="history-container">
+
+<div class="card" onclick="openTransaction('XRP')">
+  <div class="row-between">
+    <div><span class="coin">XRP</span><span class="star">★</span></div>
+    <div class="status"><div class="dot"></div>Completed</div>
+  </div>
+  <div class="row">
+    <div class="col"><div class="label">Amount</div><div class="value">0.59</div></div>
+    <div class="col"><div class="label">Fee</div><div class="value">0.16</div></div>
+    <div class="col time"><div class="label">Time</div><div class="value">12/20 1:17 am</div></div>
+  </div>
+</div>
+
+<div class="card" onclick="openTransaction('USDT')">
+  <div class="row-between">
+    <div><span class="coin">USDT</span><span class="star">★</span></div>
+    <div class="status"><div class="dot"></div>Completed</div>
+  </div>
+  <div class="row">
+    <div class="col"><div class="label">Amount</div><div class="value">0.900045</div></div>
+    <div class="col"><div class="label">Fee</div><div class="value">1</div></div>
+    <div class="col time"><div class="label">Time</div><div class="value">12/20 1:13 am</div></div>
+  </div>
+</div>
+
+<div class="card" onclick="openTransaction('TON')">
+  <div class="row-between">
+    <div><span class="coin">TON</span><span class="star">★</span></div>
+    <div class="status"><div class="dot"></div>Completed</div>
+  </div>
+  <div class="row">
+    <div class="col"><div class="label">Amount</div><div class="value">599.99</div></div>
+    <div class="col"><div class="label">Fee</div><div class="value">0.01</div></div>
+    <div class="col time"><div class="label">Time</div><div class="value">07/28 10:19 am</div></div>
+  </div>
+</div>
+
+<div class="card" onclick="openTransaction('USDT')">
+  <div class="row-between">
+    <div><span class="coin">USDT</span><span class="star">★</span></div>
+    <div class="status"><div class="dot"></div>Completed</div>
+  </div>
+  <div class="row">
+    <div class="col"><div class="label">Amount</div><div class="value">2542.1</div></div>
+    <div class="col"><div class="label">Fee</div><div class="value">0.9</div></div>
+    <div class="col time"><div class="label">Time</div><div class="value">07/28 10:23 am</div></div>
+  </div>
+</div>
+
+<div class="card" onclick="openTransaction('TON')">
+  <div class="row-between">
+    <div><span class="coin">TON</span><span class="star">★</span></div>
+    <div class="status"><div class="dot"></div>Completed</div>
+  </div>
+  <div class="row">
+    <div class="col"><div class="label">Amount</div><div class="value">4999.99</div></div>
+    <div class="col"><div class="label">Fee</div><div class="value">0.01</div></div>
+    <div class="col time"><div class="label">Time</div><div class="value">07/28 10:19 am</div></div>
+  </div>
+</div>
+
+<div class="card" onclick="openTransaction('TON')">
+  <div class="row-between">
+    <div><span class="coin">TON</span><span class="star">★</span></div>
+    <div class="status"><div class="dot"></div>Completed</div>
+  </div>
+  <div class="row">
+    <div class="col"><div class="label">Amount</div><div class="value">2999.99</div></div>
+    <div class="col"><div class="label">Fee</div><div class="value">0.01</div></div>
+    <div class="col time"><div class="label">Time</div><div class="value">01/13 11:13 am</div></div>
+  </div>
+</div>
+
+<div class="card" onclick="openTransaction('BTC')">
+  <div class="row-between">
+    <div><span class="coin">BTC</span><span class="star">★</span></div>
+    <div class="status"><div class="dot"></div>Completed</div>
+  </div>
+  <div class="row">
+    <div class="col"><div class="label">Amount</div><div class="value">0.0045</div></div>
+    <div class="col"><div class="label">Fee</div><div class="value">0.0003</div></div>
+    <div class="col time"><div class="label">Time</div><div class="value">03/02 5:41 pm</div></div>
+  </div>
+</div>
+
+<div class="card" onclick="openTransaction('ETH')">
+  <div class="row-between">
+    <div><span class="coin">ETH</span><span class="star">★</span></div>
+    <div class="status"><div class="dot"></div>Completed</div>
+  </div>
+  <div class="row">
+    <div class="col"><div class="label">Amount</div><div class="value">1.78</div></div>
+    <div class="col"><div class="label">Fee</div><div class="value">0.02</div></div>
+    <div class="col time"><div class="label">Time</div><div class="value">03/10 11:22 am</div></div>
+  </div>
+</div>
+
+<div class="card" onclick="openTransaction('BNB')">
+  <div class="row-between">
+    <div><span class="coin">BNB</span><span class="star">★</span></div>
+    <div class="status"><div class="dot"></div>Completed</div>
+  </div>
+  <div class="row">
+    <div class="col"><div class="label">Amount</div><div class="value">15.22</div></div>
+    <div class="col"><div class="label">Fee</div><div class="value">0.05</div></div>
+    <div class="col time"><div class="label">Time</div><div class="value">04/01 7:05 pm</div></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const indicator = document.querySelector('.segment-indicator');
+const segmentBtns = document.querySelectorAll('.segment-btn');
+
+function selectSegment(index) {
+  segmentBtns.forEach(btn => btn.classList.remove('active'));
+  segmentBtns[index].classList.add('active');
+  indicator.style.left = index === 0 ? '0%' : '50%';
+}
+
+/* REDIRECT FUNCTION */
+function openTransaction(coin) {
+  window.location.href = "pay.html?coin=" + encodeURIComponent(coin);
+}
+</script>
+
+</body>
+</html>
