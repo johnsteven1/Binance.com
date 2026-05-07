@@ -1,33 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Image with Link Dot</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Withdrawal Details</title>
 
-.background-container {
-  position: relative;
-  width: 100%;
-  height: 100vh; /* This defines the height of the container itself */
-  background-image: url('IMG-20260505-WA0050.jpg');
-  background-size: 100% 100%; /* Increase background image height */
-  background-repeat: no-repeat;
-  background-position: center;
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
 }
 
-  </style>
+body {
+  background: #ffffff;
+  color: #111;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 18px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.back {
+  position: absolute;
+  left: 18px;
+  cursor: pointer;
+}
+
+.back img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* MAIN */
+.container {
+  text-align: center;
+  padding: 10px 13px 5px;
+}
+
+.amount-label {
+  color: #777;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.amount {
+  font-size: 28px;
+  font-weight: 500;
+  margin: 5px 0;
+}
+
+.currency {
+  font-size: 15px;
+  color: #555;
+  margin-left: -2px;
+}
+
+.status {
+  color: #16a34a;
+  font-size: 14px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: -3px;
+}
+
+/* STATUS IMAGE */
+.status img {
+  width: 22px;
+  height: 22px;
+}
+
+/* CARD */
+.card {
+  background: rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  margin: 15px 12px;
+  border-radius: 7px;
+  padding: 15px 6px;
+  text-align: left;
+  border: 1px solid rgba(0,0,0,0.01);
+}
+
+/* ROW STRUCTURE */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.row:first-child {
+  padding-top: 0;
+}
+
+.row:last-child {
+  padding-bottom: 0;
+}
+
+.label {
+  color: #777;
+  min-width: 100px;
+}
+
+.value {
+  color: #111;
+  text-align: right;
+  max-width: 65%;
+  word-break: break-word;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+}
+
+/* UPDATED COPY BUTTON */
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #999;
+  min-width: 18px;
+  min-height: 18px;
+  flex-shrink: 0;
+
+  position: relative;
+
+  top: -13px;
+  left: -5px;
+}
+
+/* SVG */
+.copy-btn svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* FOOTER */
+.footer {
+  margin: 10px 14px 20px;
+}
+
+.button {
+  background: rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(6px);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  color: #c99700;
+  margin-bottom: 12px;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.05);
+  font-size: 14px;
+}
+
+/* UPDATED HELP SECTION */
+.help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: #c99700;
+  font-size: 13px;
+}
+
+.help img {
+  width: 11px;
+  height: 11px;
+  display: block;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.toast.show {
+  opacity: 1;
+}
+</style>
 </head>
+
 <body>
-  <div class="background-container">
-    <a href="receive2.html" target="_blank">
-      <div class="link-dot" title="Go to link"></div>
-    </a>
+
+<div class="header">
+  <div class="back" onclick="goBack()">
+    <img src="file_00000000cfec720a98ce5f4f12449e81.png" alt="back">
   </div>
+  Withdrawal Details
+</div>
+
+<div class="container">
+  <div class="amount-label">Amount</div>
+  <div class="amount">86.59 <span class="currency">TON</span></div>
+
+  <div class="status">
+    <img src="file_00000000ab28720ab1846633c9505338.png" alt="success">
+    Completed
+  </div>
+</div>
+
+<div class="card">
+
+  <div class="row">
+    <div class="label">Confirmations</div>
+    <div class="value">3/3</div>
+  </div>
+
+  <div class="row">
+    <div class="label">Network</div>
+    <div class="value">TON</div>
+  </div>
+
+  <div class="row">
+    <div class="label">Address</div>
+    <div class="value">
+      <span id="address">UQBrlLnZm38p10Q4U9IFB8SDc2NdgNbCM7jMGTtbFSvYRnRV</span>
+      <div class="copy-btn" data-copy="address">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="10" height="10" rx="2"/>
+          <path d="M7 15H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label">MEMO</div>
+    <div class="value">
+      <span id="memo"></span>
+      <div class="copy-btn" data-copy="memo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="10" height="10" rx="2"/>
+          <path d="M7 15H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label">Txid</div>
+    <div class="value">
+      <span id="txid">91e5542a60ff7e5176816edf11cdd62ffce4fdbc0d8262cc0add22b79f2c68c5</span>
+      <div class="copy-btn" data-copy="txid">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="10" height="10" rx="2"/>
+          <path d="M7 15H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label">Fee:</div>
+    <div class="value">0.000397 TON</div>
+  </div>
+
+  <div class="row">
+    <div class="label">Dates</div>
+    <div class="value">2026-04-28 20:59:19 pm</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="button">＋ Enter remarks</div>
+
+  <div class="help">
+    <img src="6897039.png" alt="help">
+    <span>Need help? View FAQs</span>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+function goBack() {
+  alert("Back button clicked");
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1200);
+}
+
+document.querySelectorAll('.copy-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const id = btn.getAttribute('data-copy');
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text);
+    showToast('Copied');
+  });
+});
+</script>
+
 </body>
 </html>
-    
